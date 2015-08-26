@@ -6,9 +6,11 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var del = require('del');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  js: ['./www/js/*.js', './www/js/controllers/*.js', './www/js/services/*.js']
 };
 
 gulp.task('default', ['sass']);
@@ -49,4 +51,18 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('js', function() {
+  // delete the old file synchronously bc we lazy
+  del.sync(['./www/app.min.js']);
+
+  // build our new file
+  gulp.src(paths.js)
+    .pipe(concat('app.min.js'))
+    .pipe(gulp.dest('./www/'));
+});
+
+gulp.task('watch-js', function() {
+  gulp.watch(paths.js, ['js']);
 });
