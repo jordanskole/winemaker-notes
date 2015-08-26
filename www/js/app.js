@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-var app = angular.module('wineApp', ['ionic']);
+var app = angular.module('wineApp', ['ionic', 'firebase']);
 
 app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
   $httpProvider.defaults.useXDomain = true;
@@ -16,7 +16,7 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
       url: "/",
       templateUrl: "templates/login.html"
     });
-  
+
 });
 
 app.run(function($ionicPlatform) {
