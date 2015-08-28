@@ -4,18 +4,27 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-var app = angular.module('wineApp', ['ionic', 'firebase']);
+var app = angular.module('wineApp', ['ionic', 'firebase', 'ngCordova']);
+var fb = new Firebase("https://winemaker-notes.firebaseio.com");
 
 app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
+
   $httpProvider.defaults.useXDomain = true;
   // don't put controllers here, load them via the templates
   // this has to do with the way scope works in angular it needs to be applied to the ion-content directive
   // this will attach scope to the ion-view
   $stateProvider
     .state('login', {
-      url: "/",
+      url: "/login",
       templateUrl: "templates/login.html"
+    })
+    .state('register', {
+      url: "/register",
+      templateUrl: "templates/register.html"
     });
+
+  // if we aren't at a known route
+  $urlRouterProvider.otherwise("/login");
 
 });
 
