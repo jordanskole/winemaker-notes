@@ -14,17 +14,39 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
   // this has to do with the way scope works in angular it needs to be applied to the ion-content directive
   // this will attach scope to the ion-view
   $stateProvider
+
     .state('login', {
       url: "/login",
       templateUrl: "templates/login.html"
     })
+    .state('logout', {
+      url: "/logout",
+      controller: "LogoutCtrl"
+    })
     .state('register', {
       url: "/register",
       templateUrl: "templates/register.html"
+    })
+    .state('account', {
+      url: "/account",
+      templateUrl: "templates/account.html",
+      resolve: {
+        // controller will not be loaded until $requireAuth resolves
+        // Auth refers to our $firebaseAuth wrapper in the example above
+        "currentAuth": ["Auth", function(Auth) {
+          // $requireAuth returns a promise so the resolve waits for it to complete
+          // If the promise is rejected, it will throw a $stateChangeError (see above)
+          return Auth.$requireAuth();
+        }]
+      }
+    })
+    .state('wines', {
+      url: "/wines",
+      templateUrl: "templates/wines.html"
     });
 
   // if we aren't at a known route
-  $urlRouterProvider.otherwise("/login");
+  $urlRouterProvider.otherwise("/wines");
 
 });
 
@@ -40,3 +62,14 @@ app.run(function($ionicPlatform) {
     }
   });
 });
+
+// for states that require authentication send them to login
+app.run(["$rootScope", "$state", function($rootScope, $state) {
+  $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
+    // We can catch the error thrown when the $requireAuth promise is rejected
+    // and redirect the user back to the home page
+    if (error === "AUTH_REQUIRED") {
+      $state.go("login");
+    }
+  });
+}]);

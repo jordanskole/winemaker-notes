@@ -1,4 +1,5 @@
-app.factory('Auth', function($firebaseAuth) {
-  var usersRef = new Firebase("https//winemaker-notes.firebaseio.com/users");
-  return $firebaseAuth(usersRef);
-});
+app.factory("Auth", ["$firebaseAuth",
+  function($firebaseAuth) {
+    return $firebaseAuth(fb);
+  }
+]);

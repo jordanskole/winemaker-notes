@@ -1,20 +1,32 @@
-<ion-view view-title="Winemaker's Notes">
+<ion-view view-title="Create an Account">
   <ion-content ng-controller="RegisterCtrl">
+
     <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="Full Name" ng-model="user.name">
-      </label>
       <label class="item item-input">
         <input type="text" placeholder="Email Address" ng-model="user.email">
       </label>
+    </div>
+
+    <div class="list list-inset">
       <label class="item item-input">
         <input type="password" placeholder="Password" ng-model="user.password">
       </label>
+      <label class="item item-input">
+        <input type="password" placeholder="Confirm Password" ng-model="user.password2">
+      </label>
     </div>
+
+    <div ng-if="error" class="list list-inset">
+      <div class="item item-divider item-calm">
+        {{ error.message }}
+      </div>
+    </div>
+
     <div class="list list-inset">
       <button class="button button-block button-positive" ng-click="register()">
         Register
       </button>
     </div>
+
   </ion-content>
 </ion-view>

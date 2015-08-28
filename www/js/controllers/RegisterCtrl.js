@@ -1,8 +1,26 @@
 // Login Controller before everything
-app.controller('RegisterCtrl', ['$scope', '$state', function($scope, $state) {
+app.controller('RegisterCtrl', ['$scope', '$state', 'Auth', function($scope, $state, Auth) {
+
+  // TODO: Switch to the Auth Service
+  // TODO: User promises instead of callbacks
 
   // create our empty scope user
   $scope.user = {};
+
+  // create our empty scope error
+  $scope.error = null;
+
+  // make sure the user has confirmed their password
+  $scope.$watch('user.password2', function(newValue, oldValue) {
+    if (newValue !== $scope.user.password) {
+      $scope.error = {
+        code: "INVALID_PASSWORD",
+        message: "Passwords don't match."
+      };
+    } else {
+      $scope.error = null;
+    }
+  });
 
   // login the old fashioned way with a email/pw
   $scope.register = function () {
