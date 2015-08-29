@@ -40,6 +40,7 @@ app.controller('RegisterCtrl', ['$scope', '$state', 'Auth', function($scope, $st
 
             // successfully logged the user in.
             console.log("Authenticated successfully with payload:", authData);
+            $state.go('wines');
           }
         });
 
