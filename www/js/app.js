@@ -40,9 +40,26 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
         }]
       }
     })
+    /*
+     * Our Wine Views
+     */
     .state('wines', {
       url: "/wines",
       templateUrl: "templates/wines.html",
+      resolve: {
+        // controller will not be loaded until $requireAuth resolves
+        // Auth refers to our $firebaseAuth wrapper in the example above
+        "currentAuth": ["Auth", function(Auth) {
+          // $requireAuth returns a promise so the resolve waits for it to complete
+          // If the promise is rejected, it will throw a $stateChangeError (see above)
+          return Auth.$requireAuth();
+        }]
+      }
+    })
+    .state('wines.create', {
+      url: "/create",
+      templateUrl: "templates/wines.create.html",
+      // do I need resolve on child views?
       resolve: {
         // controller will not be loaded until $requireAuth resolves
         // Auth refers to our $firebaseAuth wrapper in the example above
