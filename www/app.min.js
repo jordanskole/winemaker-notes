@@ -42,7 +42,16 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
     })
     .state('wines', {
       url: "/wines",
-      templateUrl: "templates/wines.html"
+      templateUrl: "templates/wines.html",
+      resolve: {
+        // controller will not be loaded until $requireAuth resolves
+        // Auth refers to our $firebaseAuth wrapper in the example above
+        "currentAuth": ["Auth", function(Auth) {
+          // $requireAuth returns a promise so the resolve waits for it to complete
+          // If the promise is rejected, it will throw a $stateChangeError (see above)
+          return Auth.$requireAuth();
+        }]
+      }
     });
 
   // if we aren't at a known route
