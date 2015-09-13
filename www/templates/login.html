@@ -1,0 +1,30 @@
+<ion-view view-title="Winemaker's Notes">
+  <ion-content ng-controller="LoginCtrl">
+    <div ng-if="error" class="list list-inset">
+      <div class="item item-divider item-energized">
+        {{ error.message }}
+      </div>
+    </div>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="text" placeholder="Email Address" ng-model="user.email">
+      </label>
+      <label class="item item-input">
+        <input type="password" placeholder="Password" ng-model="user.password">
+      </label>
+    </div>
+
+    <div class="text-center">
+      <p>
+        <a ui-sref="register">Create an Account</a>
+      </p>
+    </div>
+
+    <div class="list list-inset">
+      <button class="button button-block button-positive" ng-click="simpleLogin()">
+        Login
+      </button>
+    </div>
+
+  </ion-content>
+</ion-view>
