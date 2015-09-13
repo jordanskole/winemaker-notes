@@ -44,8 +44,9 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
      * Our Wine Views
      */
     .state('wines', {
+      abstract: true,
       url: "/wines",
-      templateUrl: "templates/wines.html",
+      template: "<ion-nav-view/>",
       resolve: {
         // controller will not be loaded until $requireAuth resolves
         // Auth refers to our $firebaseAuth wrapper in the example above
@@ -56,23 +57,17 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
         }]
       }
     })
+    .state('wines.index', {
+      url: "/index",
+      templateUrl: "templates/wines.index.html"
+    })
     .state('wines.create', {
       url: "/create",
-      templateUrl: "templates/wines.create.html",
-      // do I need resolve on child views?
-      resolve: {
-        // controller will not be loaded until $requireAuth resolves
-        // Auth refers to our $firebaseAuth wrapper in the example above
-        "currentAuth": ["Auth", function(Auth) {
-          // $requireAuth returns a promise so the resolve waits for it to complete
-          // If the promise is rejected, it will throw a $stateChangeError (see above)
-          return Auth.$requireAuth();
-        }]
-      }
+      templateUrl: "templates/wines.create.html"
     });
 
   // if we aren't at a known route
-  $urlRouterProvider.otherwise("/wines");
+  $urlRouterProvider.otherwise("/wines/index");
 
 });
 
