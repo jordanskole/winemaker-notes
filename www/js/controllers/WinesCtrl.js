@@ -3,6 +3,7 @@ app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', functi
 
   // get a list of the users wines
   $scope.wines = [];
+  $scope.newWine = {};
 
   // .fromTemplateUrl() method
   $ionicPopover.fromTemplateUrl('templates/wines.create.popover.html', {
@@ -12,19 +13,33 @@ app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', functi
   });
 
   $scope.active = 'kit';
-  $scope.setActive = function(type) {
-      $scope.active = type;
+  $scope.setActive = function (type) {
+    console.log($scope.newWine.title);
+    $scope.active = type;
   };
-  $scope.isActive = function(type) {
-      return type === $scope.active;
+  $scope.isActive = function (type) {
+    return type === $scope.active;
   };
 
-  $scope.openPopover = function($event) {
+  $scope.openPopover = function ($event) {
     $scope.popover.show($event);
   };
 
-  $scope.closePopover = function() {
+  $scope.closePopover = function () {
     $scope.popover.hide();
+  };
+
+  $scope.createWine = function () {
+
+    console.log($scope.newWine.title);
+    console.log($scope.active);
+
+    $scope.popover.hide();
+
+    $state.go('wines.create', {
+      "name": $scope.newWine.title,
+      "type": $scope.active
+    });
   };
 
 }]);
