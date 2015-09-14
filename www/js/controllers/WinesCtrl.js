@@ -1,8 +1,8 @@
 // Login Controller before everything
-app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', function($scope, $state, $ionicPopover, Auth) {
+app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', 'Wines', function($scope, $state, $ionicPopover, Auth, Wines) {
 
   // get a list of the users wines
-  $scope.wines = [];
+  $scope.wines = Wines.$array;
   $scope.newWine = {};
 
   // .fromTemplateUrl() method
@@ -31,15 +31,28 @@ app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', functi
 
   $scope.createWine = function () {
 
-    console.log($scope.newWine.title);
-    console.log($scope.active);
-
-    $scope.popover.hide();
-
-    $state.go('wines.create', {
+    // add the new wine to firebase
+    Wines.$array.$add({
+      "uid": Auth.$getAuth().uid,
       "name": $scope.newWine.title,
-      "type": $scope.active
+      "type": $scope.active,
+      "created_on": moment().format()
+    })
+    .then(function (ref) {
+      // return our object to normal
+      $scope.newWine.title = null;
+
+      var id = ref.key();
+      // list.$indexFor(id); // returns location in the array
+
+      // hide the popover
+      $scope.popover.hide();
+
+      // and take us to the create wine view with our new wine
+      $state.go('wines.detail', {"id": id});
     });
+
+
   };
 
 }]);

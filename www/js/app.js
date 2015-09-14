@@ -61,13 +61,9 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
       url: "/index",
       templateUrl: "templates/wines.index.html"
     })
-    .state('wines.create', {
-      url: "/create",
-      templateUrl: "templates/wines.create.html",
-      params: {
-        type: "kit",
-        name: ""
-      }
+    .state('wines.detail', {
+      url: "/wines/:id",
+      templateUrl: "templates/wines.detail.html"
     });
 
   // if we aren't at a known route
