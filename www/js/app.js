@@ -40,9 +40,13 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
         }]
       }
     })
+    /*
+     * Our Wine Views
+     */
     .state('wines', {
+      abstract: true,
       url: "/wines",
-      templateUrl: "templates/wines.html",
+      template: "<ion-nav-view/>",
       resolve: {
         // controller will not be loaded until $requireAuth resolves
         // Auth refers to our $firebaseAuth wrapper in the example above
@@ -52,10 +56,18 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
           return Auth.$requireAuth();
         }]
       }
+    })
+    .state('wines.index', {
+      url: "/index",
+      templateUrl: "templates/wines.index.html"
+    })
+    .state('wines.detail', {
+      url: "/wines/:id",
+      templateUrl: "templates/wines.detail.html"
     });
 
   // if we aren't at a known route
-  $urlRouterProvider.otherwise("/wines");
+  $urlRouterProvider.otherwise("/wines/index");
 
 });
 
