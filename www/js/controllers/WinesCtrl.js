@@ -2,7 +2,7 @@
 app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', 'Wines', function($scope, $state, $ionicPopover, Auth, Wines) {
 
   // get a list of the users wines
-  $scope.wines = Wines.$array;
+  $scope.wines = Wines.$array.getMyWines();
   $scope.newWine = {};
 
   // .fromTemplateUrl() method
