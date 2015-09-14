@@ -1,0 +1,24 @@
+<ion-popover-view>
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Wine Name:</span>
+        <input type="text" placeholder="Pinotsaur">
+      </label>
+
+      <div class="item">
+        Made from:
+        <div class="button-bar padding-top">
+          <a ng-model="setActiveIngredient('grapes')" ng-click="setActive('grapes')" ng-class="{'button-positive': isActive('grapes')}" class="button">Grapes</a>
+          <a ng-model="setActiveIngredient('kit')" ng-click="setActive('kit')" ng-class="{'button-positive': isActive('kit')}" class="button">A Kit</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <button class="button button-block button-positive">
+          Get Started!
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-popover-view>

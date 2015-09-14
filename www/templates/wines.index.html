@@ -1,16 +1,24 @@
-<ion-view view-title="Your Cellar">
+<ion-view view-title="Your Cellar" ng-controller="WinesCtrl">
   <ion-nav-buttons side="secondary">
-    <button ui-sref="wines.create" class="button button-icon icon ion-plus"></button>
+    <button ng-click="openPopover($event)" class="button button-icon icon ion-plus"></button>
   </ion-nav-buttons>
 
   <ion-content>
     <ion-list>
-      <ion-item class="item-thumbnail-left">
-        <img src="http://www.winexpert.com/content/533/vineyard_160x175.jpg">
-        <h2>Pinot Grigio<span class="item-note">9/13/15</span></h2>
-        <p><a ui-sref="/kits/wine-expert" class="button button-balanced button-outline button-small">Wine Expert</a></p>
+
+      <ion-item ng-click="openPopover($event)" class="item-thumbnail-left item-icon-right">
+        <img src="/img/add_wine.png">
+        <p><span ng-if="!wines.length > 0">You don't have any wines.</span>&nbsp;</p>
+        <h2><strong>Add a New Wine</strong></h2>
+        <i class="royal icon ion-arrow-up-a"></i>
       </ion-item>
+
+      <ion-item ng-if="wines.length > 0" ng-repeat="wine in wines" class="item-thumbnail-left">
+        <img src="{{ wine.image }}">
+        <h2>{{ wine.name }}<span class="item-note">{{ wine.created_on }}</span></h2>
+        <p><button ng-repeat="tag in wines.tags" class="button-outline button-small"></button></p>
+      </ion-item>
+
     </ion-list>
   </ion-content>
-
 </ion-view>

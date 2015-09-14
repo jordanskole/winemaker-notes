@@ -26,7 +26,7 @@ app.controller('LoginCtrl', ['$scope', '$state', '$timeout', 'Auth', function($s
     Auth.$authWithPassword($scope.user).then(function(authData) {
       // what a success!
       console.log("Logged in as:", authData.uid);
-      $state.go('wines');
+      $state.go('wines.index');
     }).catch(function(error) {
       $scope.error = error;
       console.log(error.code);
