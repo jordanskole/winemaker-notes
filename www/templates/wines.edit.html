@@ -1,0 +1,83 @@
+<ion-view ng-controller="WineDetailCtrl">
+  <ion-nav-title>{{ wine.name }}</ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button ui-sref="wines.index" class="button button-icon icon ion-chevron-left"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="secondary">
+    <button class="button button-clear">{{saved ? 'Saved' : 'Saving...'}}</button>
+  </ion-nav-buttons>
+  <ion-content>
+
+    <!-- general wine information -->
+    <div class="list card">
+
+      <div class="item item-image">
+        <img class="full-image" src="/img/blank_wine.png">
+      </div>
+
+      <div class="item item-divider text-center">
+        <span ng-if="wine.stage === 'draft'" class="positive">Draft</span>
+        <span ng-if="!wine.stage === 'draft'" class="balanced">Ready</span>
+        &rsaquo;
+        <span ng-class="{'positive': wine.stage === 'primary'}">Primary</span>
+        &rsaquo;
+        <span ng-class="{'positive': wine.stage === 'secondary'}">Secondary</span>
+        &rsaquo;
+        <span ng-class="{'positive': wine.stage === 'bottle'}">Bottle</span>
+      </div>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label"><small>Wine Name:</small></span>
+        <input ng-model="wine.name" ng-change="inputChange()" type="text" placeholder="My Big Cab" >
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Wine Kit Brand
+        </div>
+        <select ng-model="wine.kit.brand" ng-change="inputChange()">
+          <option>Wine Expert</option>
+          <option>RJS Craft</option>
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Wine Kit Name:
+        </div>
+        <select ng-model="wine.kit.product" ng-change="inputChange()">
+          <option>Eclipse</option>
+          <option>Selection</option>
+          <option>Speciale</option>
+          <option>World Vineyard</option>
+          <option>Vintners Reserve</option>
+          <option>Chai Maison</option>
+          <option>Island Mist</option>
+          <option>Skinny Mist</option>
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Varietal:
+        </div>
+        <select ng-model="wine.varietal" ng-change="inputChange()">
+          <option>Pinot Grigio</option>
+          <option>Reisling</option>
+          <option>Chardonay</option>
+          <option>Sauvignon Blanc</option>
+          <option>Cabernet</option>
+          <option>Merlot</option>
+          <option>Shiraz</option>
+          <option>Malbec</option>
+        </select>
+      </label>
+
+      <div class="item">
+        <a ng-disabled="!saved" ui-sref="wines.detail({id: wine.$id })" class="button button-block button-positive">Save Wine</a>
+      </div>
+
+    </div>
+
+  </ion-content>
+</ion-view>

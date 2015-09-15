@@ -49,7 +49,7 @@ app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', 'Wines
       $scope.popover.hide();
 
       // and take us to the create wine view with our new wine
-      $state.go('wines.detail', {"id": id, "editing": true});
+      $state.go('wines.detail', {"id": id});
     });
 
 
