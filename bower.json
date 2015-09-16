@@ -7,6 +7,7 @@
   "dependencies": {
     "angularfire": "~1.1.2",
     "firebase": "~2.2.9",
+    "font-awesome": "fontawesome#~4.4.0",
     "ionic": "~1.1.0",
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
