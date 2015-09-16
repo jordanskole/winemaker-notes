@@ -1,7 +1,7 @@
 // Login Controller before everything
 app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', '$ionicPopup', 'Auth', 'Wines', function($scope, $state, $ionicPopover, $ionicPopup, Auth, Wines) {
 
-  // get a list of the users wines
+  // get a list of the user's wines
   $scope.wines = Wines.$array.getMyWines();
   $scope.newWine = {};
 
@@ -55,18 +55,34 @@ app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', '$ionicPopup',
 
   };
 
-  $scope.deleteWineAlert = function (id) {
+  $scope.deleteWine = function (id) {
+
     var confirmPopup = $ionicPopup.confirm({
       title: 'Delete Wine',
       template: 'Are you sure you want to delete this wine?'
     });
-   confirmPopup.then(function(res) {
-     if(res) {
-       console.log('You are sure about ' + id);
-     } else {
-       console.log('You are not sure about ' + id);
-     }
-   });
-  }
+
+    confirmPopup.then(function(res) {
+
+      if(res) {
+
+        Wines.$array
+          .$remove(Wines.$array.$getRecord(id))
+          .then( function (ref) {
+            // wine deleted
+          }, function (err) {
+            // some error happened
+            console.warn(err);
+          });
+
+      } else {
+
+        // the user canceled delete
+        // console.log('You are not sure about ' + id);
+
+      }
+
+    });
+  };
 
 }]);
