@@ -4,8 +4,7 @@
     <button ui-sref="wines.index" class="button button-icon icon ion-chevron-left"></button>
   </ion-nav-buttons>
   <ion-nav-buttons side="secondary">
-    <button ng-if="editing" ng-click="toggleEdit()" class="button button-clear">Editing...</button>
-    <button ng-if="!editing" ng-click="toggleEdit()" class="button button-icon icon ion-ios-compose-outline"></button>
+    <button ui-sref="wines.edit({id: wine.$id })" class="button button-icon icon ion-ios-compose-outline"></button>
   </ion-nav-buttons>
   <ion-content>
 
@@ -18,7 +17,7 @@
 
       <div class="item item-divider text-center">
         <span ng-if="wine.stage === 'draft'" class="positive">Draft</span>
-        <span ng-if="!wine.stage === 'draft'" class="balanced">Ready</span>
+        <span ng-if="wine.stage !== 'draft'" class="balanced">Ready</span>
         &rsaquo;
         <span ng-class="{'positive': wine.stage === 'primary'}">Primary</span>
         &rsaquo;
@@ -39,7 +38,7 @@
 
       <div class="item item-icon-left">
         <i class="icon ion-cube"></i>
-        {{ wine.kit.name || '???' }} by {{ wine.kit.brand || '???' }}
+        {{ wine.kit.product || '???' }} by {{ wine.kit.brand || '???' }}
         <span class="item-note">Wine Kit</span>
       </div>
 
