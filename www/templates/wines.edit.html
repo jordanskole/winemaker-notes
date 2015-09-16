@@ -3,9 +3,6 @@
   <ion-nav-buttons side="primary">
     <button ui-sref="wines.index" class="button button-icon icon ion-chevron-left"></button>
   </ion-nav-buttons>
-  <ion-nav-buttons side="secondary">
-    <button class="button button-clear">{{saved ? 'Saved' : 'Saving...'}}</button>
-  </ion-nav-buttons>
   <ion-content>
 
     <!-- general wine information -->
@@ -17,7 +14,7 @@
 
       <div class="item item-divider text-center">
         <span ng-if="wine.stage === 'draft'" class="positive">Draft</span>
-        <span ng-if="!wine.stage === 'draft'" class="balanced">Ready</span>
+        <span ng-if="wine.stage !== 'draft'" class="balanced">Ready</span>
         &rsaquo;
         <span ng-class="{'positive': wine.stage === 'primary'}">Primary</span>
         &rsaquo;
@@ -28,14 +25,14 @@
 
       <label class="item item-input item-stacked-label">
         <span class="input-label"><small>Wine Name:</small></span>
-        <input ng-model="wine.name" ng-change="inputChange()" type="text" placeholder="My Big Cab" >
+        <input ng-model="wine.name" type="text" placeholder="My Big Cab" >
       </label>
 
       <label class="item item-input item-select">
         <div class="input-label">
           Wine Kit Brand
         </div>
-        <select ng-model="wine.kit.brand" ng-change="inputChange()">
+        <select ng-model="wine.kit.brand">
           <option>Wine Expert</option>
           <option>RJS Craft</option>
         </select>
@@ -45,7 +42,7 @@
         <div class="input-label">
           Wine Kit Name:
         </div>
-        <select ng-model="wine.kit.product" ng-change="inputChange()">
+        <select ng-model="wine.kit.product">
           <option>Eclipse</option>
           <option>Selection</option>
           <option>Speciale</option>
@@ -61,7 +58,7 @@
         <div class="input-label">
           Varietal:
         </div>
-        <select ng-model="wine.varietal" ng-change="inputChange()">
+        <select ng-model="wine.varietal">
           <option>Pinot Grigio</option>
           <option>Reisling</option>
           <option>Chardonay</option>
@@ -74,7 +71,7 @@
       </label>
 
       <div class="item">
-        <a ng-disabled="!saved" ui-sref="wines.detail({id: wine.$id })" class="button button-block button-positive">Save Wine</a>
+        <a ui-sref="wines.detail({id: wine.$id })" class="button button-block button-positive">Save Wine</a>
       </div>
 
     </div>

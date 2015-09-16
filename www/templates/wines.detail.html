@@ -17,7 +17,7 @@
 
       <div class="item item-divider text-center">
         <span ng-if="wine.stage === 'draft'" class="positive">Draft</span>
-        <span ng-if="!wine.stage === 'draft'" class="balanced">Ready</span>
+        <span ng-if="wine.stage !== 'draft'" class="balanced">Ready</span>
         &rsaquo;
         <span ng-class="{'positive': wine.stage === 'primary'}">Primary</span>
         &rsaquo;
@@ -38,7 +38,7 @@
 
       <div class="item item-icon-left">
         <i class="icon ion-cube"></i>
-        {{ wine.kit.name || '???' }} by {{ wine.kit.brand || '???' }}
+        {{ wine.kit.product || '???' }} by {{ wine.kit.brand || '???' }}
         <span class="item-note">Wine Kit</span>
       </div>
 
