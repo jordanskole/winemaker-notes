@@ -36,7 +36,8 @@ app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', 'Wines
       "uid": Auth.$getAuth().uid,
       "name": $scope.newWine.title,
       "type": $scope.active,
-      "created_on": moment().format()
+      "created_on": moment().format(),
+      "stage": "draft"
     })
     .then(function (ref) {
       // return our object to normal
@@ -49,7 +50,7 @@ app.controller('WinesCtrl', ['$scope', '$state', '$ionicPopover', 'Auth', 'Wines
       $scope.popover.hide();
 
       // and take us to the create wine view with our new wine
-      $state.go('wines.detail', {"id": id});
+      $state.go('wines.edit', {"id": id});
     });
 
 
