@@ -1,57 +1,81 @@
 // Login Controller before everything
-app.controller('WineDetailCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', 'Auth', 'Wines', function($scope, $state, $stateParams, $ionicPopup, Auth, Wines) {
+app.controller('WineDetailCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', 'Auth', 'Wines', 'Kits', function($scope, $state, $stateParams, $ionicPopup, Auth, Wines, Kits) {
 
+  $scope.filter = {
+    "products": this.products,
+    "kits": false
+  }
   var Wine = Wines.$object($state.params.id);
+
 
   Wine
     .$bindTo($scope, 'wine')
     .then(function () {
-      $scope.saved = true;
+
+      // $scope.filter.products
+      Kits.$array
+        .getProductsByBrand($scope.wine.kit.brand)
+        .then(function (products) {
+          $scope.filter.products =  products;
+          Kits.$array.filterByProduct($scope.wine.kit.product).$loaded().then( function (data) {
+            $scope.filter.kits = data;
+          });
+        }, function (err) {
+          console.warn(err);
+        });
+
     });
 
   Wine
     .$watch(function () {
 
       // check if the wine is still a draft
-      if ($scope.wine.name && $scope.wine.kit.brand && $scope.wine.kit.product && $scope.wine.varietal) {
-        $scope.wine.stage = 'ready';
-      } else {
-        $scope.wine.stage = 'draft';
-      }
+      // if ($scope.wine.name && $scope.wine.kit.brand && $scope.wine.kit.product && $scope.wine.varietal) {
+      //   $scope.wine.stage = 'ready';
+      // } else {
+      //   $scope.wine.stage = 'draft';
+      // }
 
     });
 
-    $scope.deleteWine = function (id) {
+  $scope.updateNames = function () {
+    if ($scope.wine.kit.product) {
+      $scope.filter.kits = Kits.$array.filterByProduct($scope.wine.kit.product);
+    }
+  }
 
-      var confirmPopup = $ionicPopup.confirm({
-        title: 'Delete Wine',
-        template: 'Are you sure you want to delete this wine?',
-        okType: 'button-assertive',
-        okText: 'Delete'
-      });
+  // delete wine function
+  $scope.deleteWine = function (id) {
 
-      confirmPopup.then(function(res) {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Delete Wine',
+      template: 'Are you sure you want to delete this wine?',
+      okType: 'button-assertive',
+      okText: 'Delete'
+    });
 
-        if(res) {
+    confirmPopup.then(function(res) {
 
-          Wines.$array
-            .$remove(Wines.$array.$getRecord(id))
-            .then( function (ref) {
-              // wine deleted
-              $state.go('wines.index');
-            }, function (err) {
-              // some error happened
-              console.warn(err);
-            });
+      if(res) {
 
-        } else {
+        Wines.$array
+          .$remove(Wines.$array.$getRecord(id))
+          .then( function (ref) {
+            // wine deleted
+            $state.go('wines.index');
+          }, function (err) {
+            // some error happened
+            console.warn(err);
+          });
 
-          // the user canceled delete
-          // console.log('You are not sure about ' + id);
+      } else {
 
-        }
+        // the user canceled delete
+        // console.log('You are not sure about ' + id);
 
-      });
-    };
+      }
+
+    });
+  };
 
 }]);

@@ -54,6 +54,11 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
           // $requireAuth returns a promise so the resolve waits for it to complete
           // If the promise is rejected, it will throw a $stateChangeError (see above)
           return Auth.$requireAuth();
+        }],
+        "products": ["Kits", function (Kits) {
+          // $requireAuth returns a promise so the resolve waits for it to complete
+          // If the promise is rejected, it will throw a $stateChangeError (see above)
+          return Kits.$array.getProductsByBrand('World Expert');
         }]
       }
     })
@@ -62,11 +67,11 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
       templateUrl: "templates/wines.index.html"
     })
     .state('wines.detail', {
-      url: "/wines/:id",
+      url: "/:id",
       templateUrl: "templates/wines.detail.html"
     })
     .state('wines.edit', {
-      url: "wines/:id/edit",
+      url: "/:id/edit",
       templateUrl: "templates/wines.edit.html"
     });
 

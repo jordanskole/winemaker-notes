@@ -28,47 +28,46 @@
         <input ng-model="wine.name" type="text" placeholder="My Big Cab" >
       </label>
 
+      <!-- Kit Brand -->
       <label class="item item-input item-select">
         <div class="input-label">
-          Wine Kit Brand
+          Wine Kit Brand:
         </div>
         <select ng-model="wine.kit.brand">
           <option>Wine Expert</option>
-          <option>RJS Craft</option>
         </select>
       </label>
 
+      <!-- Kit Product -->
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Wine Kit Product:
+        </div>
+        <select ng-change="updateNames()" ng-model="wine.kit.product">
+          <option ng-repeat="product in filter.products">{{ product }}</option>
+        </select>
+      </label>
+
+      <!-- Kit Name -->
       <label class="item item-input item-select">
         <div class="input-label">
           Wine Kit Name:
         </div>
-        <select ng-model="wine.kit.product">
-          <option>Eclipse</option>
-          <option>Selection</option>
-          <option>Speciale</option>
-          <option>World Vineyard</option>
-          <option>Vintners Reserve</option>
-          <option>Chai Maison</option>
-          <option>Island Mist</option>
-          <option>Skinny Mist</option>
+        <select ng-model="wine.kit.id">
+          <option ng-if="!filter.kits" value="{{ wine.kit.id }}">loading...</option>
+          <option ng-repeat="kit in filter.kits" value="{{ kit.$id }}">{{ kit.name }}</option>
         </select>
       </label>
 
-      <label class="item item-input item-select">
+      <!-- Kit Varietal -->
+      <!-- <label class="item item-input item-select">
         <div class="input-label">
           Varietal:
         </div>
-        <select ng-model="wine.varietal">
-          <option>Pinot Grigio</option>
-          <option>Reisling</option>
-          <option>Chardonay</option>
-          <option>Sauvignon Blanc</option>
-          <option>Cabernet</option>
-          <option>Merlot</option>
-          <option>Shiraz</option>
-          <option>Malbec</option>
+        <select>
+          <option ng-repeat="varietal in varietals">{{ varietal }}</option>
         </select>
-      </label>
+      </label> -->
 
       <div class="item">
         <a ui-sref="wines.detail({id: wine.$id })" class="button button-block button-positive">Save Wine</a>
