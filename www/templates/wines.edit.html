@@ -28,42 +28,46 @@
         <input ng-model="wine.name" type="text" placeholder="My Big Cab" >
       </label>
 
+      <!-- Kit Brand -->
       <label class="item item-input item-select">
         <div class="input-label">
-          Wine Kit Brand
+          Wine Kit Brand:
         </div>
-        <select ng-model="filters.brand">
+        <select ng-model="wine.kit.brand">
           <option>Wine Expert</option>
-          <option>RJS Craft</option>
         </select>
       </label>
 
+      <!-- Kit Product -->
       <label class="item item-input item-select">
         <div class="input-label">
           Wine Kit Product:
         </div>
-        <select ng-model="wine.kit.product">
-          <option ng-repeat="kit in kits | unique:'product'">{{ kit.product }}</option>
+        <select ng-change="updateNames()" ng-model="wine.kit.product">
+          <option ng-repeat="product in filter.products">{{ product }}</option>
         </select>
       </label>
 
+      <!-- Kit Name -->
       <label class="item item-input item-select">
         <div class="input-label">
           Wine Kit Name:
         </div>
-        <select ng-model="wine.kit.name">
-          <option ng-repeat="kit in kits">{{ kit.name }}</option>
+        <select ng-model="wine.kit.id">
+          <option ng-if="!filter.kits" value="{{ wine.kit.id }}">loading...</option>
+          <option ng-repeat="kit in filter.kits" value="{{ kit.$id }}">{{ kit.name }}</option>
         </select>
       </label>
 
-      <label class="item item-input item-select">
+      <!-- Kit Varietal -->
+      <!-- <label class="item item-input item-select">
         <div class="input-label">
           Varietal:
         </div>
-        <select ng-disabled="true" ng-model="wine.varietal">
-          <option ng-repeat="kit in kits | unique: 'varietal'">{{ kit.varietal }}</option>
+        <select>
+          <option ng-repeat="varietal in varietals">{{ varietal }}</option>
         </select>
-      </label>
+      </label> -->
 
       <div class="item">
         <a ui-sref="wines.detail({id: wine.$id })" class="button button-block button-positive">Save Wine</a>
