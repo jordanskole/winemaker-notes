@@ -32,7 +32,7 @@
         <div class="input-label">
           Wine Kit Brand
         </div>
-        <select ng-model="wine.kit.brand">
+        <select ng-model="filters.brand">
           <option>Wine Expert</option>
           <option>RJS Craft</option>
         </select>
@@ -40,17 +40,19 @@
 
       <label class="item item-input item-select">
         <div class="input-label">
-          Wine Kit Name:
+          Wine Kit Product:
         </div>
         <select ng-model="wine.kit.product">
-          <option>Eclipse</option>
-          <option>Selection</option>
-          <option>Speciale</option>
-          <option>World Vineyard</option>
-          <option>Vintners Reserve</option>
-          <option>Chai Maison</option>
-          <option>Island Mist</option>
-          <option>Skinny Mist</option>
+          <option ng-repeat="kit in kits | unique:'product'">{{ kit.product }}</option>
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Wine Kit Name:
+        </div>
+        <select ng-model="wine.kit.name">
+          <option ng-repeat="kit in kits">{{ kit.name }}</option>
         </select>
       </label>
 
@@ -58,15 +60,8 @@
         <div class="input-label">
           Varietal:
         </div>
-        <select ng-model="wine.varietal">
-          <option>Pinot Grigio</option>
-          <option>Reisling</option>
-          <option>Chardonay</option>
-          <option>Sauvignon Blanc</option>
-          <option>Cabernet</option>
-          <option>Merlot</option>
-          <option>Shiraz</option>
-          <option>Malbec</option>
+        <select ng-disabled="true" ng-model="wine.varietal">
+          <option ng-repeat="kit in kits | unique: 'varietal'">{{ kit.varietal }}</option>
         </select>
       </label>
 

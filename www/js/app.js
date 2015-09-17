@@ -62,11 +62,11 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
       templateUrl: "templates/wines.index.html"
     })
     .state('wines.detail', {
-      url: "/wines/:id",
+      url: "/:id",
       templateUrl: "templates/wines.detail.html"
     })
     .state('wines.edit', {
-      url: "wines/:id/edit",
+      url: "/:id/edit",
       templateUrl: "templates/wines.edit.html"
     });
 
