@@ -1,0 +1,99 @@
+<ion-view ng-controller="WineDetailCtrl">
+  <ion-nav-title>{{ wine.name }}</ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button ui-sref="wines.index" class="button button-icon icon ion-chevron-left"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="secondary">
+    <button ui-sref="wines.edit({id: wine.$id })" class="button button-icon icon ion-ios-compose-outline"></button>
+  </ion-nav-buttons>
+  <ion-content>
+
+    <!-- general wine information -->
+    <div class="list card">
+
+      <div class="item item-image">
+        <img class="full-image" src="/img/blank_wine.png">
+      </div>
+
+      <div class="item item-divider text-center">
+        <span ng-if="wine.stage === 'draft'" class="positive">Draft</span>
+        <span ng-if="wine.stage !== 'draft'" class="balanced">Ready</span>
+        &rsaquo;
+        <span ng-class="{'positive': wine.stage === 'primary'}">Primary</span>
+        &rsaquo;
+        <span ng-class="{'positive': wine.stage === 'secondary'}">Secondary</span>
+        &rsaquo;
+        <span ng-class="{'positive': wine.stage === 'bottle'}">Bottle</span>
+      </div>
+
+      <div class="item text-center royal">
+        <strong>{{ wine.name }}</strong>
+      </div>
+
+      <div class="item item-icon-left">
+        <i class="icon ion-wineglass"></i>
+        {{ wine.varietal }}
+        <span class="item-note">Varietal</span>
+      </div>
+
+      <div class="item item-icon-left">
+        <i class="icon ion-cube"></i>
+        {{ wine.kit.product || '???' }} by {{ wine.kit.brand || '???' }}
+        <span class="item-note">Wine Kit</span>
+      </div>
+
+    </div>
+
+    <!-- wine alerts -->
+    <ion-list ng-if="wine.alerts.length > 0" class="card">
+
+      <div class="item item-divider text-center item-energized">
+        <strong>Alerts</strong>
+      </div>
+
+      <ion-item ng-repeat="alert in wine.alerts" ui-sref="wines.edit" class="item item-icon-left item-text-wrap">
+        <i class="icon ion-alert energized"></i>
+        {{ alert.text }}
+        <ion-option-button class="button-info padding-horizontal">
+          Dismiss
+        </ion-option-button>
+      </ion-item>
+
+    </ion-list>
+
+    <!-- wine reviews -->
+    <div class="list card">
+
+      <div class="item item-divider text-center positive">
+        <strong>Notes</strong>
+      </div>
+
+      <div class="item">
+        <a class="button button-block button-positive">Add a Note</a>
+      </div>
+
+      <div ng-if="!wines.notes.length > 0" ng-click="toggleWrap()" class="item">
+        You haven't saved any notes yet. Save a note.
+      </div>
+
+    </div>
+
+    <!-- wine notes -->
+    <div class="list card">
+
+      <div class="item item-divider text-center positive">
+        <strong>Tastings</strong>
+      </div>
+
+      <div class="item">
+        <a class="button button-block button-positive">Log a Tasting</a>
+      </div>
+
+      <div ng-if="!wines.tastings.length > 0" ng-click="toggleWrap()" class="item">
+        You haven't saved any tastings yet. Save a note.
+      </div>
+
+    </div>
+
+  </ion-content>
+</ion-view>
