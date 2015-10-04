@@ -1,7 +1,7 @@
 <ion-view>
   <ion-nav-title>Edit: {{ wine.name }}</ion-nav-title>
   <ion-nav-buttons side="primary">
-    <button ui-sref="wines.index" class="button button-icon icon ion-chevron-left"></button>
+    <button ui-sref="wines.detail({id: wine.$id })" class="button button-icon icon ion-chevron-left"></button>
   </ion-nav-buttons>
   <ion-content>
 

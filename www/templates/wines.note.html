@@ -1,9 +1,64 @@
 <ion-view>
   <ion-nav-title>{{ wine.name }}</ion-nav-title>
   <ion-nav-buttons side="primary">
-    <button ui-sref="wines.index" class="button button-icon icon ion-chevron-left"></button>
+    <button ui-sref="wines.detail({id: wine.$id })" class="button button-icon icon ion-chevron-left"></button>
   </ion-nav-buttons>
   <ion-content>
-    <h1>Leave a note!</h1>
+    <div class="list card">
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Add Note:</span>
+        <textarea type="text" rows="10" placeholder="{{ wine.name }} is..."></textarea>
+      </label>
+
+      <div class="item item-toggle">
+         Log Event
+         <label class="toggle toggle-calm">
+           <input ng-model="event" type="checkbox">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+      </div>
+
+      <div ng-if="event" class="item">
+
+        <ion-radio ng-model="choice" ng-value="fermenting">Fermenting</ion-radio>
+        <ion-radio ng-model="choice" ng-value="racking">Racking</ion-radio>
+        <ion-radio ng-model="choice" ng-value="bottling">Bottling</ion-radio>
+
+      </div>
+
+      <div class="item item-toggle">
+         Include Measurements?
+         <label class="toggle toggle-calm">
+           <input ng-model="measurements" type="checkbox">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+      </div>
+
+      <div ng-if="measurements" class="item">
+
+        <div class="item range">
+          Specific Gravity
+          <input type="range" name="specific_gravity">
+        </div>
+
+        <div class="item">
+          Color:
+          <input type="text" name="color" placeholder="Bright ruby...">
+        </div>
+
+      </div>
+
+      <div class="item">
+        <button class="button button-block button-positive">
+          Save Note
+        </button>
+      </div>
+
+    </div>
   </ion-content>
 </ion-view>
