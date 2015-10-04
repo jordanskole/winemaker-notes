@@ -50,16 +50,11 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
       resolve: {
         // controller will not be loaded until $requireAuth resolves
         // Auth refers to our $firebaseAuth wrapper in the example above
-        "currentAuth": ["Auth", function (Auth) {
+        currentAuth: function (Auth) {
           // $requireAuth returns a promise so the resolve waits for it to complete
           // If the promise is rejected, it will throw a $stateChangeError (see above)
           return Auth.$requireAuth();
-        }],
-        "products": ["Kits", function (Kits) {
-          // $requireAuth returns a promise so the resolve waits for it to complete
-          // If the promise is rejected, it will throw a $stateChangeError (see above)
-          return Kits.$array.getProductsByBrand('World Expert');
-        }]
+        }
       }
     })
     .state('wines.index', {
@@ -72,7 +67,21 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
     })
     .state('wines.edit', {
       url: "/:id/edit",
-      templateUrl: "templates/wines.edit.html"
+      templateUrl: "templates/wines.edit.html",
+      resolve: {
+        // controller will not be loaded until these promises resolve
+        // Wines refers to our Wines service
+        Wine: function ($stateParams, Wines) {
+          return Wines.$object($stateParams.id).$loaded();
+        },
+        // Kits refers to our Kits service
+        Products: function (Kits) {
+          // $requireAuth returns a promise so the resolve waits for it to complete
+          // If the promise is rejected, it will throw a $stateChangeError (see above)
+          return Kits.$array.getProductsByBrand('Wine Expert');
+        }
+      },
+      controller: "WineEditCtrl"
     });
 
   // if we aren't at a known route
@@ -96,6 +105,8 @@ app.run(function($ionicPlatform) {
 // for states that require authentication send them to login
 app.run(["$rootScope", "$state", function($rootScope, $state) {
   $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
+    // throw the error
+    console.warn(error);
     // We can catch the error thrown when the $requireAuth promise is rejected
     // and redirect the user back to the home page
     if (error === "AUTH_REQUIRED") {

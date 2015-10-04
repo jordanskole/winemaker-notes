@@ -1,0 +1,38 @@
+<ion-view view-title="Your Cellar" ng-controller="WinesCtrl">
+  <ion-nav-buttons side="secondary">
+    <button ng-click="openPopover($event)" class="button button-icon icon ion-plus"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-list ng-if="!wines.length > 0">
+      <ion-item ng-click="openPopover($event)" class="item-thumbnail-left item-icon-right">
+        <img src="/img/add_wine.png">
+        <p ng-if="!wines.length > 0">You don't have any wines.</p>
+        <h2><strong>Add a New Wine</strong></h2>
+        <i class="royal icon ion-arrow-up-a"></i>
+      </ion-item>
+    </ion-list>
+
+    <ion-list ng-if="wines.length > 0" can-swipe="true">
+
+      <ion-item ui-sref="wines.detail({id: wine.$id })" ng-repeat="wine in wines" class="item-thumbnail-left">
+        <img ng-if="wine.image" src="{{ wine.image }}">
+        <img ng-if="!wine.image" ng-src="/img/blank_wine.png">
+        <h2>{{ wine.name }}<span class="item-note">{{ wine.created_on | date: 'shortDate' }}</span></h2>
+        <i class="icon ion-ios-star-outline energized"></i> <i class="icon ion-ios-star-outline energized"></i> <i class="icon ion-ios-star-outline energized"></i> <i class="icon ion-ios-star-outline energized"></i> <i class="icon ion-ios-star-outline energized"></i>
+        <p><strong>Varietal:</strong> {{ wine.varietal }}</p>
+        <p><strong>Current Stage:</strong> {{ wine.stage }}</p>
+        <p><button ng-repeat="tag in wines.tags" class="button-outline button-small"></button></p>
+
+        <ion-option-button ui-sref="wines.edit({ id: wine.$id })" class="button-info padding-horizontal">
+          &nbsp; Edit &nbsp;
+        </ion-option-button>
+        <ion-option-button ng-click="deleteWine(wine.$id)" class="button-assertive">
+          Delete
+        </ion-option-button>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

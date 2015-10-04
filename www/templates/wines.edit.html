@@ -1,4 +1,4 @@
-<ion-view ng-controller="WineDetailCtrl">
+<ion-view>
   <ion-nav-title>Edit: {{ wine.name }}</ion-nav-title>
   <ion-nav-buttons side="primary">
     <button ui-sref="wines.index" class="button button-icon icon ion-chevron-left"></button>
@@ -49,13 +49,11 @@
       </label>
 
       <!-- Kit Name -->
-      <label class="item item-input item-select">
+      <label ng-if="wine.kit.product" class="item item-input item-select">
         <div class="input-label">
           Wine Kit Name:
         </div>
-        <select ng-model="wine.kit.id">
-          <option ng-if="!filter.kits" value="{{ wine.kit.id }}">loading...</option>
-          <option ng-repeat="kit in filter.kits" value="{{ kit.$id }}">{{ kit.name }}</option>
+        <select ng-model="wine.kit.id" ng-options="kit.$id as kit.name for kit in filter.kits">
         </select>
       </label>
 
