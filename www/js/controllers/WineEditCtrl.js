@@ -5,7 +5,9 @@ app.controller('WineEditCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup
     "kits": false
   };
 
-  Wine.$bindTo($scope, 'wine');
+  Wine.$bindTo($scope, 'wine').then(function () {
+    $scope.filter.kits = Kits.$array.filterByProduct($scope.wine.kit.product);
+  });
 
   $scope.updateNames = function () {
     if ($scope.wine.kit.product) {
