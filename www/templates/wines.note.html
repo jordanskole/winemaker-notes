@@ -8,7 +8,7 @@
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Add Note:</span>
-        <textarea type="text" rows="10" placeholder="{{ wine.name }} is..."></textarea>
+        <textarea ng-model="note.message" type="text" rows="10" placeholder="{{ wine.name }} is..."></textarea>
       </label>
 
       <div class="item item-toggle">
@@ -23,38 +23,38 @@
 
       <div ng-if="event" class="item">
 
-        <ion-radio ng-model="choice" ng-value="fermenting">Fermenting</ion-radio>
-        <ion-radio ng-model="choice" ng-value="racking">Racking</ion-radio>
-        <ion-radio ng-model="choice" ng-value="bottling">Bottling</ion-radio>
+        <ion-radio ng-model="note.choice" ng-value="fermenting">Fermenting</ion-radio>
+        <ion-radio ng-model="note.choice" ng-value="racking">Racking</ion-radio>
+        <ion-radio ng-model="note.choice" ng-value="bottling">Bottling</ion-radio>
 
       </div>
 
       <div class="item item-toggle">
          Include Measurements?
          <label class="toggle toggle-calm">
-           <input ng-model="measurements" type="checkbox">
+           <input ng-model="note.measurements" type="checkbox">
            <div class="track">
              <div class="handle"></div>
            </div>
          </label>
       </div>
 
-      <div ng-if="measurements" class="item">
+      <div ng-if="note.measurements" class="item">
 
         <div class="item range">
           Specific Gravity
-          <input type="range" name="specific_gravity">
+          <input ng-model="note.specific_gravity" type="range" name="specific_gravity">
         </div>
 
         <div class="item">
           Color:
-          <input type="text" name="color" placeholder="Bright ruby...">
+          <input ng-model="note.color" type="text" name="color" placeholder="Bright ruby...">
         </div>
 
       </div>
 
       <div class="item">
-        <button class="button button-block button-positive">
+        <button ng-click="createNote()" class="button button-block button-positive">
           Save Note
         </button>
       </div>
