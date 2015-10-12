@@ -61,24 +61,30 @@
 
     </ion-list>
 
-    <!-- wine reviews -->
+    <!-- wine notes -->
     <div class="list card">
 
       <div class="item item-divider text-center positive">
         <strong>Notes</strong>
       </div>
 
+      <ion-list ng-if="notes.length > 0">
+        <ion-item ng-repeat="note in notes">
+          {{ note.message }}
+        </ion-item>
+      </ion-list>
+
       <div class="item">
         <a class="button button-block button-positive" ui-sref="wines.note({id: wine.$id })">Add a Note</a>
       </div>
 
-      <div ng-if="!wines.notes.length > 0" ng-click="toggleWrap()" class="item">
+      <div ng-if="!notes.length > 0" ng-click="toggleWrap()" class="item">
         You haven't saved any notes yet. Save a note.
       </div>
 
     </div>
 
-    <!-- wine notes -->
+    <!-- wine reviews -->
     <div class="list card">
 
       <div class="item item-divider text-center positive">

@@ -1,5 +1,5 @@
 // Login Controller before everything
-app.controller('WineDetailCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', 'Auth', 'Wines', 'Kits', function($scope, $state, $stateParams, $ionicPopup, Auth, Wines, Kits) {
+app.controller('WineDetailCtrl', ['$scope', '$state', '$stateParams', '$ionicPopup', 'Auth', 'Wines', 'Kits', 'Notes',  function($scope, $state, $stateParams, $ionicPopup, Auth, Wines, Kits, Notes) {
 
   // TODO: this should be a resolve
   var Wine = Wines.$object($state.params.id);
@@ -7,8 +7,10 @@ app.controller('WineDetailCtrl', ['$scope', '$state', '$stateParams', '$ionicPop
   Wine
     .$bindTo($scope, 'wine')
     .then(function () {
-
+      // do something
     });
+
+  $scope.notes = Notes.$array.getNotesByWine(Wine.$id);
 
   Wine
     .$watch(function () {
