@@ -69,7 +69,7 @@
       </div>
 
       <ion-list ng-if="notes.length > 0">
-        <ion-item ng-repeat="note in notes">
+        <ion-item ui-sref="note({id: note.$id})" ng-repeat="note in notes">
           {{ note.message }}
         </ion-item>
       </ion-list>

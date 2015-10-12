@@ -1,0 +1,13 @@
+<ion-view>
+  <ion-nav-title>Note Detail</ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button ui-sref="wines.detail({id: note.wine_id })" class="button button-icon icon ion-chevron-left"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list card">
+
+      {{ note.message }}
+
+    </div>
+  </ion-content>
+</ion-view>
