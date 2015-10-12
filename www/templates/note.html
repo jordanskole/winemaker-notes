@@ -1,0 +1,62 @@
+<ion-view>
+  <ion-nav-title>Note Detail</ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button ui-sref="wines.detail({id: note.wine_id })" class="button button-icon icon ion-chevron-left"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list card">
+      <div class="item item-divider">
+        Message:
+        <span class="item-note">
+          {{ note.created_on | date : 'shortDate' }}
+        </span>
+      </div>
+      <div class="item item-body">
+          {{ note.message }}
+      </div>
+    </div>
+
+    <div ng-if="note.specific_gravity || note.color" class="list card">
+      <div class="item item-divider">
+        Measurements:
+      </div>
+      <div ng-if="note.specific_gravity" class="item item-icon-left">
+        <i class="icon ion-thermometer"></i>
+        Specific Gravity
+        <span class="badge badge-assertive">{{ note.specific_gravity }}</span>
+      </div>
+      <div ng-if="note.color" class="item item-icon-left">
+        <i class="icon ion-android-color-palette"></i>
+        Color
+        <span class="item-note">{{ note.color }}</span>
+      </div>
+    </div>
+
+    <div class="list card">
+      <div class="item item-divider">
+        Pictures:
+        <span class="item-note">Coming soon!</span>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col col-50">
+            <img src="http://placehold.it/400x400&text=Picture" style="width: 100%;">
+          </div>
+          <div class="col col-50">
+            <img src="http://placehold.it/400x400&text=Picture" style="width: 100%;">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-50">
+            <img src="http://placehold.it/400x400&text=Picture" style="width: 100%;">
+          </div>
+          <div class="col col-50">
+            <img src="http://placehold.it/400x400&text=Picture" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>
