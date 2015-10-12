@@ -69,8 +69,11 @@
       </div>
 
       <ion-list ng-if="notes.length > 0">
-        <ion-item ui-sref="note({id: note.$id})" ng-repeat="note in notes">
-          {{ note.message }}
+        <ion-item ui-sref="note({id: note.$id})" ng-repeat="note in notes" class="item-text-wrap">
+          <h3>{{ note.created_on | date : 'shortDate'}}</h3>
+          <p>
+            {{ note.message }}
+          </p>
         </ion-item>
       </ion-list>
 
