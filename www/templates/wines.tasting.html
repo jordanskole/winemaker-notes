@@ -1,0 +1,46 @@
+<ion-view>
+  <ion-nav-title>{{ wine.name }}</ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button ui-sref="wines.detail({id: wine.$id })" class="button button-icon icon ion-chevron-left"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list card">
+
+      <div class="row">
+        <div class="col text-center" ng-click="tastingScore(1)">
+          <a ng-if="tasting.score == null || tasting.score < 1" class="button button-icon icon ion-ios-star-outline"></a>
+          <a ng-if="tasting.score >= 1" class="button button-icon icon ion-ios-star energized"></a>
+        </div>
+        <div class="col text-center" ng-click="tastingScore(2)">
+          <i ng-if="tasting.score == null || tasting.score < 2" class="button button-icon icon ion-ios-star-outline"></i>
+          <i ng-if="tasting.score >= 2" class="button button-icon icon ion-ios-star energized"></i>
+        </div>
+        <div class="col text-center" ng-click="tastingScore(3)">
+          <i ng-if="tasting.score == null || tasting.score < 3" class="button button-icon icon ion-ios-star-outline"></i>
+          <i ng-if="tasting.score >= 3" class="button button-icon icon ion-ios-star energized"></i>
+        </div>
+        <div class="col text-center" ng-click="tastingScore(4)">
+          <i ng-if="tasting.score == null || tasting.score < 4" class="button button-icon icon ion-ios-star-outline"></i>
+          <i ng-if="tasting.score >= 4" class="button button-icon icon ion-ios-star energized"></i>
+        </div>
+        <div class="col text-center" ng-click="tastingScore(5)">
+          <i ng-if="tasting.score == null || tasting.score < 5" class="button button-icon icon ion-ios-star-outline"></i>
+          <i ng-if="tasting.score >= 5" class="button button-icon icon ion-ios-star energized"></i>
+        </div>
+      </div>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Log a Tasting:</span>
+        <textarea ng-model="note.message" type="text" rows="10" placeholder="{{ wine.name }} is..."></textarea>
+      </label>
+
+    </div>
+
+    <div class="list card">
+      <div class="item">
+        <a class="button button-block button-positive">Save Tasting</a>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
