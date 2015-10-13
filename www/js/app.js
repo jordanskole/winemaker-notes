@@ -77,6 +77,16 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
       },
       controller: "WineNoteCtrl"
     })
+    .state('wines.tasting', {
+      url: "/:id/tasting",
+      templateUrl: "templates/wines.tasting.html",
+      resolve: {
+        Wine: function ($stateParams, Wines) {
+          return Wines.$object($stateParams.id).$loaded();
+        }
+      },
+      controller: "WineTastingCtrl"
+    })
     .state('note', {
       url: "/notes/:id",
       templateUrl: "templates/note.html",

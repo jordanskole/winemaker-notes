@@ -95,7 +95,7 @@
       </div>
 
       <div class="item">
-        <a class="button button-block button-positive">Log a Tasting</a>
+        <a ui-sref="wines.tasting({ id: wine.$id })" class="button button-block button-positive">Log a Tasting</a>
       </div>
 
       <div ng-if="!wines.tastings.length > 0" ng-click="toggleWrap()" class="item">
