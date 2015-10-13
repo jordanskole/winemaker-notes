@@ -1,4 +1,4 @@
-app.controller('WineTastingCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Wine', 'Notes', function($scope, $state, $stateParams, Auth, Wine, Notes) {
+app.controller('WineTastingCtrl', ['$scope', '$state', '$stateParams', 'Auth', 'Wine', 'Tastings', function($scope, $state, $stateParams, Auth, Wine, Tastings) {
 
   Wine.$bindTo($scope, 'wine');
 
@@ -11,26 +11,18 @@ app.controller('WineTastingCtrl', ['$scope', '$state', '$stateParams', 'Auth', '
     $scope.tasting.score = score;
   }
 
-  $scope.createNote = function() {
-    console.log('Note:');
-    console.log($scope.note);
+  $scope.createTasting = function() {
 
-    Notes.$array.$add({
+    Tastings.$array.$add({
         "uid": Auth.$getAuth().uid,
         "wine_id": Wine.$id,
         "created_on": moment().format(),
         "edited_on": moment().format(),
-        "message": $scope.note.message,
-        "event": $scope.note.event,
-        "measurements": $scope.note.measurements,
-        "specific_gravity": $scope.note.specific_gravity,
-        "color": $scope.note.color
+        "message": $scope.tasting.message,
+        "score": $scope.tasting.score
     }).then( function (ref) {
-      $scope.note = {
-        "event": false,
-        "measurements": false,
-        "specific_gravity": null,
-        "color": null
+      $scope.tasting = {
+        "score": null
       };
       $state.go('wines.detail', {'id': Wine.$id });
     });

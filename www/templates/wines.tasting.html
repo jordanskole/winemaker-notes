@@ -31,14 +31,14 @@
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Log a Tasting:</span>
-        <textarea ng-model="note.message" type="text" rows="10" placeholder="{{ wine.name }} tastes..."></textarea>
+        <textarea ng-model="tasting.message" type="text" rows="10" placeholder="{{ wine.name }} tastes..."></textarea>
       </label>
 
     </div>
 
     <div class="list card">
       <div class="item">
-        <a class="button button-block button-positive">Save Tasting</a>
+        <a ng-click="createTasting()" class="button button-block button-positive">Save Tasting</a>
       </div>
     </div>
 
